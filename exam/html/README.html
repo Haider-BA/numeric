@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.9.1: http://docutils.sourceforge.net/" />
+<title>README: ODE integration with complex numbers</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7434 2012-05-11 21:06:27Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { /* line numbers */
+  color: grey;
+}
+
+.code {
+  background-color: #eeeeee
+}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="readme-ode-integration-with-complex-numbers">
+<h1 class="title">README: ODE integration with complex numbers</h1>
+
+<p>Exam exercise for <em>Numerical Methods</em> by Anders D. Christensen (<a class="reference external" href="mailto:adc&#64;geo.au.dk">mail</a>)</p>
+<div class="section" id="file-description">
+<h1>File description</h1>
+<ul class="simple">
+<li><tt class="docutils literal">Makefile</tt>: Description for GNU Make, handles compilation and execution.</li>
+<li><tt class="docutils literal">README.rst</tt> (this file): Description of numeric implementation and usage.
+Written with reStructuredText syntax.</li>
+<li><tt class="docutils literal">check.cpp</tt>: Function for displaying the state of a condition to stdout.</li>
+<li><tt class="docutils literal">check.h</tt>: Prototype for the check-function.</li>
+<li><tt class="docutils literal">functions.h</tt>: Input functions to be evaluated.</li>
+<li><tt class="docutils literal">mainA.cpp</tt>: Main source code file for part A.</li>
+<li><tt class="docutils literal">ode.cpp</tt>: Constructor and functions for the ODE class, including Runge-Kutta
+stepper and driver.</li>
+<li><tt class="docutils literal">ode.h</tt>: Header file with the ODE class. This file must be included in all
+programs that want to utilize the ODE functionality.</li>
+<li><tt class="docutils literal">plot.gp</tt>: Script for plotting all graphs with Gnuplot.</li>
+<li><tt class="docutils literal">typedefs.h</tt>: Header file containing definitions of two main types,
+<tt class="docutils literal">Inttype</tt>, a whole-number type, and <tt class="docutils literal">Floattype</tt>, a floating point number
+type. The type definitions can be changed to different lengths and precisions.
+The program can be compiled for verbose output by changing the <tt class="docutils literal">verbose</tt>
+variable.</li>
+<li><tt class="docutils literal">vector_arithmetic.h</tt>: Operator overloading functions for the <tt class="docutils literal"><span class="pre">std::vector</span></tt>
+class.</li>
+</ul>
+</div>
+<div class="section" id="problem-descriptions">
+<h1>Problem descriptions</h1>
+<p>The four generated executables each demonstrate the ODE solvers functionality by
+performing the following tasks. The results consist of the console output and
+the corresponding plot with filename <tt class="docutils literal"><span class="pre">plot&lt;Character&gt;.png</span></tt>.
+- <em>A</em>: Construct an ODE solver that can handle functions with complex values.
+Demonstrate that it solves the real component correctly, by stepping along
+a path in the real range.
+- <em>B</em>: Demonstrate that the ODE solver can solve the imaginary component by
+stepping along a path in the imaginary range.
+- <em>C</em>: Demonstrate the solution of a set of complex equations by stepping
+through the complex plane.
+- <em>D</em>: For an integration path in the complex plane, visualize how the
+requirements of absolute- and relative precision are related to the number of
+integration steps, for a given floating point precision.</p>
+</div>
+<div class="section" id="implementation">
+<h1>Implementation</h1>
+<p>This exercise was written in object-oriented C++ for easy reuse. For
+portability, all included classes are from the standard template library.</p>
+<p>The necessary <tt class="docutils literal"><span class="pre">std::vector</span></tt> arithmetic operations where overloaded to support
+element-wise operations, such as vector-scalar multiplication, vector-vector
+addition, etc. This approach was preferred over using <tt class="docutils literal"><span class="pre">std::valarray</span></tt>, since it
+is not dynamically expandable.</p>
+<p>When creating a new ODE object, the user specifies the end-points of the linear
+range, where the specified system of ordinary differential equations with
+complex values will be solved. The range end-points are complex numbers
+themselves, and the user can thus specify whether the integrator steps through a
+range of real values, imaginary values, or both components in the complex plane.</p>
+<p>The solver steps through the specified range by an adaptive step size, which is
+also a complex number. The user specifies the fraction of the range to be used
+as a start value for the step. The default value is 0.01.</p>
+<p>The ODE class contains functions for writing the ODE solution to stdout
+(<tt class="docutils literal"><span class="pre">ODE::print</span></tt>) or to a text file (<tt class="docutils literal"><span class="pre">ODE::write</span></tt>). The output format is the
+following; the first column is the real part of x, second column the imaginary
+part.  The subsequent columns do in turn consist of real- and imaginary parts of
+the variables in the ODE.</p>
+<p>The program requires a modern C++ compiler, GNU Make and Gnuplot. It has been
+tested with GCC, Clang and llvm.</p>
+</div>
+<div class="section" id="compiliation-and-execution">
+<h1>Compiliation and execution</h1>
+<p>To make and execute the program, go to the root folder and type <cite>make</cite>. This
+will compile and execute the programs for part A-D, and plot output graphs. If
+desired, individual parts can be compiled and executed using <cite>make &lt;Character&gt;</cite>.</p>
+<p>To view the source code in a browser with vim's syntax highlighting, type <cite>make
+html</cite>, and view the files in the <cite>html</cite> folder. The generation of HTML files
+requires a newer vim for the source code files, and Docutils for the readme.</p>
+<p>All output and objects can be removed using <cite>make clean</cite>.</p>
+<p>#vim: set tw=80</p>
+</div>
+</div>
+</body>
+</html>

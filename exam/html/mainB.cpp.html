@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/code/numeric/exam/mainB.cpp.html</title>
+<meta name="Generator" content="Vim/7.3">
+<meta name="plugin-version" content="vim7.3_v10">
+<meta name="syntax" content="cpp">
+<meta name="settings" content="number_lines,use_css,pre_wrap,expand_tabs">
+<style type="text/css">
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #ffffff; background-color: #000000; }
+body { font-family: monospace; color: #ffffff; background-color: #000000; }
+.lnr { color: #ffff00; }
+.Special { color: #ff40ff; }
+.Statement { color: #ffff00; }
+.Comment { color: #00ffff; }
+.Type { color: #00ff00; }
+.Constant { color: #ffff00; }
+.PreProc { color: #ff40ff; }
+-->
+</style>
+</head>
+<body>
+<pre>
+<span class="lnr"> 1 </span><span class="PreProc">#include </span><span class="Constant">&lt;iostream&gt;</span>
+<span class="lnr"> 2 </span><span class="PreProc">#include </span><span class="Constant">&lt;vector&gt;</span>
+<span class="lnr"> 3 </span><span class="PreProc">#include </span><span class="Constant">&lt;complex&gt;</span>
+<span class="lnr"> 4 </span><span class="PreProc">#include </span><span class="Constant">&lt;cmath&gt;</span>
+<span class="lnr"> 5 </span><span class="PreProc">#include </span><span class="Constant">&quot;typedefs.h&quot;</span>
+<span class="lnr"> 6 </span><span class="PreProc">#include </span><span class="Constant">&quot;check.h&quot;</span>
+<span class="lnr"> 7 </span><span class="PreProc">#include </span><span class="Constant">&quot;ode.h&quot;</span>
+<span class="lnr"> 8 </span><span class="PreProc">#include </span><span class="Constant">&quot;functions.h&quot;</span>
+<span class="lnr"> 9 </span>
+<span class="lnr">10 </span><span class="Type">int</span> main()
+<span class="lnr">11 </span>{
+<span class="lnr">12 </span>  <span class="Comment">// Namespace declarations</span>
+<span class="lnr">13 </span>  <span class="Statement">using</span> std::cout;
+<span class="lnr">14 </span>  <span class="Statement">using</span> std::vector;
+<span class="lnr">15 </span>  <span class="Statement">using</span> std::complex;
+<span class="lnr">16 </span>
+<span class="lnr">17 </span>  <span class="Comment">// Calculate machine precision</span>
+<span class="lnr">18 </span>  Floattype eps_machine = <span class="Constant">1.0f</span>;
+<span class="lnr">19 </span>  <span class="Statement">while</span> (<span class="Constant">1.0f</span> + eps_machine != <span class="Constant">1.0f</span>)
+<span class="lnr">20 </span>    eps_machine /= <span class="Constant">2.0f</span>;
+<span class="lnr">21 </span>
+<span class="lnr">22 </span>  cout &lt;&lt; <span class="Constant">&quot;</span><span class="Special">\n\033</span><span class="Constant">[1;33m--- Part B: Solving along an imaginary path ---</span><span class="Special">\033</span><span class="Constant">[0m</span><span class="Special">\n</span><span class="Constant">&quot;</span>;
+<span class="lnr">23 </span>  <span class="Type">complex</span>&lt;Floattype&gt; a(<span class="Constant">0.0f</span>, <span class="Constant">0.0f</span>);     <span class="Comment">// Lower limit</span>
+<span class="lnr">24 </span>  <span class="Type">complex</span>&lt;Floattype&gt; b(<span class="Constant">0.0f</span>, <span class="Constant">2.0f</span>*<span class="Constant">M_PI</span>); <span class="Comment">// Upper limit</span>
+<span class="lnr">25 </span>  cout &lt;&lt; <span class="Constant">&quot;Integration path: b-a = &quot;</span> &lt;&lt; b-a &lt;&lt; <span class="Special">'\n'</span>;
+<span class="lnr">26 </span>  Inttype n_eqs = <span class="Constant">2</span>; <span class="Comment">// Number of equations in ODE system</span>
+<span class="lnr">27 </span>  vector&lt;<span class="Type">complex</span>&lt;Floattype&gt; &gt; y_start(n_eqs);
+<span class="lnr">28 </span>  <span class="Type">complex</span>&lt;Floattype&gt; y0(<span class="Constant">0.0f</span>, <span class="Constant">0.0f</span>);
+<span class="lnr">29 </span>  <span class="Type">complex</span>&lt;Floattype&gt; y1(<span class="Constant">1.0f</span>, <span class="Constant">1.0f</span>);
+<span class="lnr">30 </span>  y_start[<span class="Constant">0</span>] = y0;
+<span class="lnr">31 </span>  y_start[<span class="Constant">1</span>] = y1;
+<span class="lnr">32 </span>  Floattype h_start = <span class="Constant">0.01f</span>;
+<span class="lnr">33 </span>  ODE imagode(func1,    <span class="Comment">// ODE system</span>
+<span class="lnr">34 </span>              y_start,  <span class="Comment">// Initial values</span>
+<span class="lnr">35 </span>              a,        <span class="Comment">// Lower limit</span>
+<span class="lnr">36 </span>              b,        <span class="Comment">// Upper limit</span>
+<span class="lnr">37 </span>              h_start,  <span class="Comment">// Start value of step size</span>
+<span class="lnr">38 </span>              <span class="Constant">10000</span>,    <span class="Comment">// Max. number of steps</span>
+<span class="lnr">39 </span>              eps_machine*<span class="Constant">1e12f</span>,  <span class="Comment">// Absolute precision</span>
+<span class="lnr">40 </span>              eps_machine*<span class="Constant">1e12f</span>); <span class="Comment">// Relative precision</span>
+<span class="lnr">41 </span>  imagode.write(<span class="Constant">&quot;funcB.dat&quot;</span>); <span class="Comment">// Write solutions to data file</span>
+<span class="lnr">42 </span>
+<span class="lnr">43 </span>  <span class="Comment">// Report to stdout</span>
+<span class="lnr">44 </span>  cout &lt;&lt; <span class="Constant">&quot;ODE system solved in &quot;</span>
+<span class="lnr">45 </span>       &lt;&lt; imagode.steps() &lt;&lt; <span class="Constant">&quot; steps.</span><span class="Special">\n\n</span><span class="Constant">&quot;</span>;
+<span class="lnr">46 </span>
+<span class="lnr">47 </span>  <span class="Comment">// Return successfully</span>
+<span class="lnr">48 </span>  <span class="Statement">return</span> <span class="Constant">0</span>;
+<span class="lnr">49 </span>}
+<span class="lnr">50 </span>
+</pre>
+</body>
+</html>
