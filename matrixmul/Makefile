@@ -6,9 +6,11 @@
 # but the multiplication should be done in a separate loop.
 # Matrix dimensions are specified as a command line argument.
 
-MATRIXDIMS_SLOW = 100 200 400 800 1600  
-MATRIXDIMS = $(MATRIXDIMS_SLOW) 3200
-PREFIXCMD = nice \gtime -ao
+MATRIXDIMS_SLOW = 10 20 40 80 160 320 640 1280
+#MATRIXDIMS = $(MATRIXDIMS_SLOW) 3200
+#PREFIXCMD = nice -n 10 \gtime -ao	# For OSX with GNU Time
+#PREFIXCMD = nice -n -10 time -ao  	# For Linux
+PREFIXCMD = time -ao  	# For Linux
 
 CC=gcc
 CXX=g++
@@ -142,9 +144,12 @@ octave.dat: octave.m
 	done
 
 clean:
-	rm -f *.o
-	rm -f *.dat
-	rm -f *.png
+	$(RM) *.o
+	$(RM) *.dat
+	$(RM) *.png
+	$(RM) c-arrofarrs c-linarr 
+	$(RM) c-omp-arrofarrs c-omp-linarr
+	$(RM) cpp-vectorofvectors cpp-linvectors
 
 edit:
 	vim -p Makefile plot.gp
