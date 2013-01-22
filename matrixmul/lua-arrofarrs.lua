@@ -1,9 +1,8 @@
-#!/usr/bin/lua
+#!/usr/bin/env lua
 
-N = arg[1]
+N = tonumber(arg[1])
+if N == nil then error("Sorry, I need matrix width as command line argument") end
 
--- Initialize the matrix A with two's,
--- matrix B with random numbers
 A = {}
 B = {}
 C = {}
@@ -17,8 +16,6 @@ for i=1,N do
   end
 end
 
--- Multiply matrix A with matrix B,
--- store result in matrix C
 for i=1,N do
   for j=1,N do
     sum = 0.0
