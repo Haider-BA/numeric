@@ -1,4 +1,4 @@
-#/usr/bin/octave -q -f
+#/usr/bin/octave -q -f --no-window-system
 
 if (nargin == 1)
   M = str2num(argv(){1});
