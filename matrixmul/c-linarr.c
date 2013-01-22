@@ -5,7 +5,7 @@ void matrixMult(double* A, double* B, double* C, int N)
 {
   int i, j, k;
   double sum;
-#pragma omp parallel for private (j,k,sum)
+#pragma omp parallel for private (j,k,sum) default(none) shared(A,B,C,N) if(N>100)
   for (i = 0; i<N; i++) {
     for (j = 0; j<N; j++) {
       sum = 0.0f;
