@@ -1,15 +1,14 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib> // rand is here
+#include <cstdlib>
 
 int main(int argc, char* argv[])
 {
   using std::cout;
   using std::vector;
 
-  int M, N, i, j, k;
+  int N, i, j, k;
 
-  // Read input argument as matrix height
   if (argc == 2) {
     N = atoi(argv[1]);
   } else {
@@ -17,33 +16,26 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-  // Width equal to height
-  M = N; 
-
-  vector< vector<double> > A(M,vector<double>(M));
-  vector< vector<double> > B(M,vector<double>(M));
-  vector< vector<double> > C(M,vector<double>(M));
+  vector< vector<double> > A(N,vector<double>(N));
+  vector< vector<double> > B(N,vector<double>(N));
+  vector< vector<double> > C(N,vector<double>(N));
   
-  // Fill matrices A and B with values
   for (i = 0; i<N; ++i) {
-    for (j = 0; j<M; ++j) {
+    for (j = 0; j<N; ++j) {
       A[i][j] = 2.0;
-      // We want a random value between 0 and 1
       B[i][j] = rand()/RAND_MAX;
     }
   }
 
   double sum;
-  // Perform matrix multiplication
   for (i = 0; i < N; ++i) {
-    for (j = 0; j < M; ++j) {
+    for (j = 0; j < N; ++j) {
       sum = 0.0;
-      for (k = 0; k < M; ++k)
+      for (k = 0; k < N; ++k)
 	sum = A[k][j] * B[i][k];
       C[i][j] = sum;
     }
   }
 
-  // Exit with success
   return 0;
 }

@@ -25,7 +25,6 @@ int main(int argc, char* argv[])
   double* B;
   double* C;
 
-  /* Read input argument as matrix height */
   if (argc == 2) {
     N = atoi(argv[1]);
   } else {
@@ -33,22 +32,17 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-  /* Allocate arrays */
   A = (double*) malloc(N * N * sizeof(double*));
   B = (double*) malloc(N * N * sizeof(double*));
   C = (double*) malloc(N * N * sizeof(double*));
 
-  /* Fill matrices A and B with values */
   for (i = 0; i < N*N; i++) {
     A[i] = 2.0;
-    /* We want a random value between 0 and 1 */
     B[i] = rand()/RAND_MAX;
   }
 
-  /* Perform matrix multiplication */
   matrixMult(A, B, C, N);
 
-  /* Free memory */
   free(A);
   free(B);
   free(C);
