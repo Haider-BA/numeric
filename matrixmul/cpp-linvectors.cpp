@@ -1,13 +1,13 @@
 #include <iostream>
-#include <vector>
 #include <cstdlib>
+#include <vector>
 
 int main(int argc, char* argv[])
 {
   using std::cout;
   using std::vector;
 
-  int N, i, j, k;
+  unsigned int N, i, j, k;
 
   if (argc == 2) {
     N = atoi(argv[1]);
@@ -23,14 +23,14 @@ int main(int argc, char* argv[])
   for (i = 0; i<N; ++i) {
     for (j = 0; j<N; ++j) {
       A[j*N+i] = 2.0;
-      B[j*N+i] = rand()/RAND_MAX;
+      B[j*N+i] = (double)i;
     }
   }
 
   double sum;
   for (i = 0; i < N; ++i) {
     for (j = 0; j < N; ++j) {
-      sum = 0.0f;
+      sum = 0.0;
       for (k = 0; k < N; ++k) 
 	sum += A[k*N+i] * B[j*N+k];
       C[j*N+i] = sum;

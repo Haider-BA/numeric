@@ -7,7 +7,7 @@ A = {}
 B = {}
 for i=1,(N*N) do
   A[i] = 2.0
-  B[i] = math.random()
+  B[i] = i-1
 end
 
 C = {}

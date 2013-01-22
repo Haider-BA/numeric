@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void matrixMult(double** A, double** B, double** C, int N)
 {
@@ -20,7 +20,7 @@ void matrixMult(double** A, double** B, double** C, int N)
 
 int main(int argc, char* argv[])
 {
-  int i, j, N;
+  unsigned int i, j, N;
   double** A;
   double** B;
   double** C;
@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
   for (i = 0; i < N; i++) {
     for (j = 0; j < N; j++) {
       A[i][j] = 2.0;
-      B[i][j] = rand()/RAND_MAX;
+      B[i][j] = (double) N*j + i;
     }
   }
 

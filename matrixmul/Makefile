@@ -17,7 +17,7 @@ CXX=g++
 CFLAGS=-Wall -O3
 CXXFLAGS=-Wall -O3
 
-performance.png: plot.gp lua-arrofarrs.dat lua-linarr.dat luajit-arrofarrs.dat luajit-linarr.dat c-arrofarrs.dat c-linarr.dat c-omp-arrofarrs.dat c-omp-linarr.dat julia.dat cpp-vectorofvectors.dat cpp-linvectors.dat python-numpy.dat octave.dat
+performance.png: plot.gp lua-arrofarrs.dat lua-linarr.dat luajit-arrofarrs.dat luajit-linarr.dat c-arrofarrs.dat c-linarr.dat c-omp-arrofarrs.dat c-omp-linarr.dat c-gsl-cblas.dat julia.dat cpp-vectorofvectors.dat cpp-linvectors.dat python-numpy.dat octave.dat
 	gnuplot plot.gp
 
 # Lua: Matrices as arrays of arrays
@@ -97,6 +97,18 @@ c-omp-arrofarrs: c-arrofarrs.c
 
 c-omp-linarr: c-linarr.c
 	$(CC) $(CFLAGS) -fopenmp $< -o $@
+	
+# C: GSL CBLAS library
+c-gsl-cblas.dat: c-gsl-cblas
+	# c-gsl-cblas
+	@rm -f $@
+	@for dims in $(MATRIXDIMS); do \
+	  $(PREFIXCMD) $@ -f "$$dims %e" ./$< $$dims; \
+	  echo $$dims; \
+	done
+
+c-gsl-cblas: c-gsl-cblas.c
+	$(CC) $(CFLAGS) -lgslcblas $< -o $@
 
 # Julia, native arrays
 julia.dat: julia.jl
@@ -149,6 +161,7 @@ clean:
 	$(RM) *.png
 	$(RM) c-arrofarrs c-linarr 
 	$(RM) c-omp-arrofarrs c-omp-linarr
+	$(RM) c-gsl-cblas
 	$(RM) cpp-vectorofvectors cpp-linvectors
 
 edit:

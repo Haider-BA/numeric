@@ -9,5 +9,5 @@ else :
   sys.exit(1)
 
 A = numpy.ones((N,N))*2.0
-B = numpy.random.random_sample((N,N))
+B = numpy.arange(0,N*N).reshape(N,N)
 C = numpy.dot(A,B)

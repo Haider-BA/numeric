@@ -1,22 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-void matrixMult(double* A, double* B, double* C, int N)
-{
-  int i, j, k;
-  double sum;
-#pragma omp parallel for private (j,k,sum) default(none) shared(A,B,C,N) if(N>100)
-  for (i = 0; i<N; i++) {
-    for (j = 0; j<N; j++) {
-      sum = 0.0f;
-      for (k = 0; k<N; k++) {
-	sum += A[k*N+i] * B[j*N+k];
-      }
-      C[j*N+i] = sum;
-    }
-  }
-}
-
+#include <gsl/gsl_cblas.h>
 
 int main(int argc, char* argv[])
 {
@@ -41,7 +25,8 @@ int main(int argc, char* argv[])
     B[i] = (double)i;
   }
 
-  matrixMult(A, B, C, N);
+  cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, 
+          N, N, N, 1.0, A, N, B, N, 0.0, C, N);
 
   free(A);
   free(B);

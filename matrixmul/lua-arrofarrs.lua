@@ -12,7 +12,7 @@ for i=1,N do
   C[i] = {}
   for j=1,N do
     A[i][j] = 2
-    B[i][j] = math.random()
+    B[i][j] = (N * j-1) + i-1
   end
 end
 

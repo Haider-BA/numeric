@@ -8,5 +8,5 @@ else
 end
 
 A = ones(N,N) * 2.0;
-B = rand(N,N);
+B = reshape(0:N*N-1, N, N);
 C = A*B;
