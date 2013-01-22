@@ -6,8 +6,8 @@
 # but the multiplication should be done in a separate loop.
 # Matrix dimensions are specified as a command line argument.
 
-MATRIXDIMS_SLOW = 10 20 40 80 160 320 640 1280
-#MATRIXDIMS = $(MATRIXDIMS_SLOW) 3200
+MATRIXDIMS_SLOW = 10 20 40 80 160 320 640
+MATRIXDIMS = $(MATRIXDIMS_SLOW) 1280
 #PREFIXCMD = nice -n 10 \gtime -ao	# For OSX with GNU Time
 #PREFIXCMD = nice -n -10 time -ao  	# For Linux
 PREFIXCMD = time -ao  	# For Linux
