@@ -2,7 +2,7 @@ set terminal png size 1200,600
 set output "performance.png"
 set xlabel "Matrix side length"
 set ylabel "Execution time [s]"
-set title "Matrix multiplication"
+set title "Matrix multiplication (".platform." ".threads." threads)"
 #set log xy
 set grid
 set key outside
