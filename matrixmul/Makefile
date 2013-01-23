@@ -155,6 +155,13 @@ octave.dat: octave.m
 	  echo $$dims; \
 	done
 
+# Fortran 90
+fortran90.dat: fortran90
+	# fortran90.f
+
+fortran90: fortran90.f
+	gfortran -Wall -O3 $< -o $@
+
 clean:
 	$(RM) *.o
 	$(RM) *.dat
