@@ -7,21 +7,21 @@ A = {}
 B = {}
 C = {}
 for i=1,N do
-  A[i] = {}
-  B[i] = {}
-  C[i] = {}
-  for j=1,N do
-    A[i][j] = 2
-    B[i][j] = (N * j-1) + i-1
-  end
+    A[i] = {}
+    B[i] = {}
+    C[i] = {}
+    for j=1,N do
+        A[i][j] = 2
+        B[i][j] = N * (j-1) + i-1
+    end
 end
 
 for i=1,N do
-  for j=1,N do
-    sum = 0.0
-    for k=1,N do
-      sum = sum + A[i][k] * B[k][j]
+    for j=1,N do
+        sum = 0.0
+        for k=1,N do
+            sum = sum + A[i][k] * B[k][j]
+        end
+        C[i][j] = sum
     end
-    C[i][j] = sum
-  end
 end

@@ -1,6 +1,6 @@
 #/usr/bin/octave -q -f --no-window-system
 
-if (nargin == 1)
+if (nargin > 0)
   N = str2num(argv(){1});
 else
   disp("Sorry, I need the matrix size as a command line argument");
