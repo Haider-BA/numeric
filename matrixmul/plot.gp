@@ -1,8 +1,8 @@
-set terminal png size 1200,600
+set terminal pngcairo size 1200,600
 set output "performance.png"
 set xlabel "Matrix side length"
 set ylabel "Execution time [s]"
-set title "Matrix multiplication (".platform." ".threads." threads)"
+set title "Matrix multiplication\n".platform.",".cpumodel.", ".threads." threads"
 #set log xy
 set grid
 set key outside
