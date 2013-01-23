@@ -9,9 +9,8 @@ void matrixMult(double* A, double* B, double* C, unsigned int N)
     for (i = 0; i<N; i++) {
         for (j = 0; j<N; j++) {
             sum = 0.0;
-            for (k = 0; k<N; k++) {
+            for (k = 0; k<N; k++)
                 sum += A[k*N+i] * B[j*N+k];
-            }
             C[j*N+i] = sum;
         }
     }
