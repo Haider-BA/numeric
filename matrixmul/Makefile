@@ -17,8 +17,8 @@ CXX=g++
 CFLAGS=-Wall -O3
 CXXFLAGS=-Wall -O3
 
-performance.png: plot.gp lua-arrofarrs.dat lua-linarr.dat luajit-arrofarrs.dat luajit-linarr.dat c-arrofarrs.dat c-linarr.dat c-omp-arrofarrs.dat c-omp-linarr.dat c-gsl-cblas.dat julia.dat cpp-vectorofvectors.dat cpp-linvectors.dat python-numpy.dat octave.dat
-	gnuplot plot.gp
+performance.png: plot.gp lua-arrofarrs.dat lua-linarr.dat luajit-arrofarrs.dat luajit-linarr.dat c-arrofarrs.dat c-linarr.dat c-omp-arrofarrs.dat c-omp-linarr.dat c-gsl-cblas.dat julia.dat cpp-vectorofvectors.dat cpp-linvectors.dat python-numpy.dat octave.dat cputhreads.sh cpumodel.sh
+	gnuplot -e "platform='$(shell uname -norm)'; threads='$(shell ./cputhreads.sh)'; cpumodel='$(shell ./cpumodel.sh)'" plot.gp
 
 # Lua: Matrices as arrays of arrays
 lua-arrofarrs.dat: lua-arrofarrs.lua
