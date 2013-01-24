@@ -3,9 +3,10 @@ set output "performance.png"
 set xlabel "Matrix side length"
 set ylabel "Execution time [s]"
 set title "Matrix multiplication\n".platform.",".cpumodel.", ".threads." threads"
-#set log xy
+set log xy
 set grid
 set key outside
+set label "http://github.com/anders-dc/numeric/" at screen 0.05,0.02
 plot \
          "lua-linarr.dat" title "Lua: Linear arrays" w lp, \
          "lua-arrofarrs.dat" title "Lua: Arrays of arrays" w lp, \
@@ -20,3 +21,4 @@ plot \
          "julia.dat" title "Julia" w lp, \
          "c-gsl-cblas.dat" title "C: GSL CBLAS" w lp, \
          "octave.dat" title "Octave" w lp
+

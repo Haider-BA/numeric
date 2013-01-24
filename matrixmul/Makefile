@@ -6,8 +6,9 @@
 # but the multiplication should be done in a separate loop.
 # Matrix dimensions are specified as a command line argument.
 
-MATRIXDIMS_SLOW = 10 20 40 80 160 320 640
-MATRIXDIMS = $(MATRIXDIMS_SLOW) 1280
+MATRIXDIMS_SLOW = 8 16 32 64 128 256
+MATRIXDIMS = $(MATRIXDIMS_SLOW) 512 1024
+MATRIXDIMS_FAST = $(MATRIXDIMS) 2048 4096
 #PREFIXCMD = nice -n 10 \gtime -ao	# For OSX with GNU Time
 #PREFIXCMD = nice -n -10 time -ao  	# For Linux
 PREFIXCMD = time -ao  	# For Linux
@@ -78,7 +79,7 @@ c-linarr.dat: c-linarr
 c-omp-arrofarrs.dat: c-omp-arrofarrs
 	# c-omp-arrofarrs
 	@rm -f $@
-	@for dims in $(MATRIXDIMS); do \
+	@for dims in $(MATRIXDIMS_FAST); do \
 	  $(PREFIXCMD) $@ -f "$$dims %e" ./$< $$dims; \
 	  echo $$dims; \
 	done
@@ -87,7 +88,7 @@ c-omp-arrofarrs.dat: c-omp-arrofarrs
 c-omp-linarr.dat: c-omp-linarr
 	# c-omp-linarr
 	@rm -f $@
-	@for dims in $(MATRIXDIMS); do \
+	@for dims in $(MATRIXDIMS_FAST); do \
 	  $(PREFIXCMD) $@ -f "$$dims %e" ./$< $$dims; \
 	  echo $$dims; \
 	done
@@ -102,7 +103,7 @@ c-omp-linarr: c-linarr.c
 c-gsl-cblas.dat: c-gsl-cblas
 	# c-gsl-cblas
 	@rm -f $@
-	@for dims in $(MATRIXDIMS); do \
+	@for dims in $(MATRIXDIMS_FAST); do \
 	  $(PREFIXCMD) $@ -f "$$dims %e" ./$< $$dims; \
 	  echo $$dims; \
 	done
@@ -114,7 +115,7 @@ c-gsl-cblas: c-gsl-cblas.c
 julia.dat: julia.jl
 	# julia.jl
 	@rm -f $@
-	@for dims in $(MATRIXDIMS); do \
+	@for dims in $(MATRIXDIMS_FAST); do \
 	  $(PREFIXCMD) $@ -f "$$dims %e" julia $< $$dims; \
 	  echo $$dims; \
 	done
@@ -141,7 +142,7 @@ cpp-linvectors.dat: cpp-linvectors
 python-numpy.dat: python-numpy.py
 	# python-numpy.py
 	@rm -f $@
-	@for dims in $(MATRIXDIMS); do \
+	@for dims in $(MATRIXDIMS_FAST); do \
 	  $(PREFIXCMD) $@ -f "$$dims %e" python $< $$dims; \
 	  echo $$dims; \
 	done
@@ -150,7 +151,7 @@ python-numpy.dat: python-numpy.py
 octave.dat: octave.m
 	# octave.m
 	@rm -f $@
-	@for dims in $(MATRIXDIMS); do \
+	@for dims in $(MATRIXDIMS_FAST); do \
 	  $(PREFIXCMD) $@ -f "$$dims %e" octave -qf $< $$dims; \
 	  echo $$dims; \
 	done
