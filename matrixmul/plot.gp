@@ -20,7 +20,7 @@ plot \
          "c-omp-linarr.dat" title "C-OpenMP: Linear arrays" w lp, \
          "julia.dat" title "Julia" w lp, \
          "c-gsl-cblas.dat" title "C: GSL CBLAS" w lp, \
-         "octave.dat" title "Octave" w lp
+         "octave.dat" title "Octave" w lp, \
          "cpp-armadillo.dat" title "C++: Armadillo" w lp, \
-         "cpp-eigen.dat" title "C++: Eigen3" w lp, \
+         "cpp-eigen.dat" title "C++: Eigen3" w lp
 
