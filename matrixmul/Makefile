@@ -18,7 +18,7 @@ CXX=g++
 CFLAGS=-Wall -O3 -march=native
 CXXFLAGS=-Wall -O3 -march=native
 
-performance.png: plot.gp lua-arrofarrs.dat lua-linarr.dat luajit-arrofarrs.dat luajit-linarr.dat c-arrofarrs.dat c-linarr.dat c-omp-arrofarrs.dat c-omp-linarr.dat c-gsl-cblas.dat julia.dat cpp-vectorofvectors.dat cpp-linvectors.dat python-numpy.dat octave.dat cputhreads.sh cpumodel.sh
+performance.png: plot.gp lua-arrofarrs.dat lua-linarr.dat luajit-arrofarrs.dat luajit-linarr.dat c-arrofarrs.dat c-linarr.dat c-omp-arrofarrs.dat c-omp-linarr.dat c-gsl-cblas.dat julia.dat cpp-vectorofvectors.dat cpp-linvectors.dat cpp-eigen.dat python-numpy.dat octave.dat cputhreads.sh cpumodel.sh
 	gnuplot -e "platform='$(shell uname -norm)'; threads='$(shell ./cputhreads.sh)'; cpumodel='$(shell ./cpumodel.sh)'" plot.gp
 
 # Lua: Matrices as arrays of arrays
@@ -137,6 +137,27 @@ cpp-linvectors.dat: cpp-linvectors
 	  $(PREFIXCMD) $@ -f "$$dims %e" ./$< $$dims; \
 	  echo $$dims; \
 	done
+
+# C++: Eigen
+cpp-eigen.dat: cpp-eigen
+	# cpp-eigen
+	@rm -f $@
+	@for dims in $(MATRIXDIMS_FAST); do \
+	  $(PREFIXCMD) $@ -f "$$dims %e" ./$< $$dims; \
+	  echo $$dims; \
+	done
+
+# C++: Armadillo
+cpp-armadillo.dat: cpp-armadillo
+	# cpp-armadillo
+	@rm -f $@
+	@for dims in $(MATRIXDIMS_FAST); do \
+	  $(PREFIXCMD) $@ -f "$$dims %e" ./$< $$dims; \
+	  echo $$dims; \
+	done
+
+cpp-armadillo: cpp-armadillo.cpp
+	$(CXX) $(CXXFLAGS) -larmadillo $< -o $@
 
 # Python: Numpy module
 python-numpy.dat: python-numpy.py
